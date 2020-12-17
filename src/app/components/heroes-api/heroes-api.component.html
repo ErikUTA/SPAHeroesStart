@@ -1,0 +1,196 @@
+
+  <table class="table table-dark" style="border-radius: 15px;">
+      <thead class="colorN">
+          <tr>
+              <th>Nombre</th>
+              <th>Aparicion</th>
+              <th>Descripción</th>
+              <th>Pertenece</th>
+              <th>Borrar</th>
+              <th>Editar</th>                          
+          </tr>
+      </thead>
+      <tbody *ngFor="let h of heroes">
+          <tr>
+              <td>{{ h.nombre }}</td>
+              <td>{{ h.aparicion }}</td>
+              <td><button class="btn btn-outline-info" data-toggle="modal" data-target="#eli" (click)="mostrarHeroe(h._id)">Ver más...</button></td>              
+              <td>{{ h.casa }}</td>
+              <td><button class="btn btn-danger" data-toggle="modal" data-target="#borrar" (click)="idObtener(h._id)"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-dash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5-.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/></svg></button></td>
+              <td><button class="btn btn-warning" data-toggle="modal" data-target="#editar" (click)="idObtener(h._id)"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/></svg></button></td>              
+          </tr>                    
+      </tbody>
+  </table>
+  <div class="btn-group col-12">
+    <button class="btn btn-success col-6" data-toggle="modal" data-target="#agregar"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7.5-3a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/></svg></button>
+    <button class="btn btn-info col-6" data-toggle="modal" data-target="#search"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/><path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/></svg></button>
+  </div>
+  
+            
+  
+
+  
+
+  
+
+
+  <div class="modal fade" id="eli" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Biografía</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <p>{{ single.bio }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>                              
+        </div>
+      </div>
+    </div>
+  </div>  
+
+  <div class="modal fade" id="search" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Search</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row m-5">
+            <div class="col-12">
+                <input type="number" min="0" max="10" #term (keyup)="searchHero(term.value)" class="form-control shadow" placeholder="Buscar Héroe" >
+            </div>    
+            <div class="card m-5" style="width: 18rem;">    
+              <div class="card-body" style="justify-content: center; text-align: center;">
+                <h5 class="card-title text-center" style="animation-duration: 3s; animation-name: slidein;">{{ busqueda.nombre }}</h5>
+                <img [src]="busqueda.img" alt="Imagen" width="100px" height="100px">
+                <p class="card-text nuevaAni" style="text-align: justify; overflow-y: scroll; height: 100px;">{{ busqueda.bio }}</p>      
+              </div>
+            </div>        
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>                    
+        </div>
+      </div>
+    </div>
+  </div>  
+
+  <div class="modal fade" id="borrar" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Borrar</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <H2 class="text-center">¿Seguro que desea eliminarlo?</H2>   
+          <p class="m-2" style="color: green;"><strong>Status: </strong>{{ bajas }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>          
+          <button type="button" class="btn btn-danger" (click)="bajasHeroes()">Eliminar</button>
+          <button class="btn btn-outline-info" onclick="document.location.reload();">Actualizar</button>
+        </div>
+      </div>
+    </div>
+  </div>        
+
+  <div class="modal fade" id="editar" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Editar</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form #form="ngForm">                    
+              <div class="d-flex m-3">
+                  <label class="col-4">Nombre: </label>
+                  <input type="text" class="form-control shadow col-8" style="border-radius: 15px;" placeholder="Ingresar Nombre" name="nombre" [(ngModel)]="heroe.nombre" #nombre="ngModel">
+              </div>
+              <div class="d-flex m-3">
+                  <label class="col-4">Aparicion: </label>
+                  <input type="text" class="form-control shadow col-8" style="border-radius: 15px;" placeholder="Ingresar Aparición" name="aparicion" [(ngModel)]="heroe.aparicion" #aparicion="ngModel">
+              </div>                        
+              <div class="d-flex m-3">
+                  <label class="col-4">Biografia: </label>
+                  <input type="text" class="form-control shadow col-8" style="border-radius: 15px;" placeholder="Ingresar Biografía" name="bio" [(ngModel)]="heroe.bio" #bio="ngModel">
+              </div>                                            
+              <div class="d-flex m-3">
+                  <label class="col-4">Casa: </label>
+                  <select name="casa" [(ngModel)]="heroe.casa" #casa="ngModel">
+                    <option value="DC">DC</option>
+                    <option value="Marvel">Marvel</option>
+                  </select>
+              </div>                                            
+              <p style="color: green;"><strong>Status: </strong>{{ cambios }}</p>
+            </form>            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>          
+          <button type="button" class="btn btn-warning" (click)="putHeroes()">Guardar cambios</button>
+          <button class="btn btn-outline-info" onclick="document.location.reload();">Actualizar</button>
+        </div>
+      </div>
+    </div>
+  </div>  
+  
+  <div class="modal fade" id="agregar" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Agregar</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button> 
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="postHeroes(form)" #form="ngForm">                    
+            <div class="d-flex">
+                <label class="col-4">Nombre: </label>
+                <input type="text" class="form-control col-8 mb-2 shadow" style="border-radius: 15px; height: 50px;" placeholder="Ingresar Nombre" name="nombre" [(ngModel)]="heroe.nombre" #nombre="ngModel">
+            </div>
+            <div class="d-flex">
+                <label class="col-4">Biografia: </label>
+                <input type="text" class="form-control col-8 mb-2 shadow" style="border-radius: 15px; height: 50px;" placeholder="Ingresar Biografia" name="bio" [(ngModel)]="heroe.bio" #bio="ngModel">
+            </div>
+            <div class="d-flex">
+                <label class="col-4">Imagen: </label>
+                <input type="file" class="form-control col-8 mb-2 shadow" style="border-radius: 15px; height: 50px;" placeholder="Ingresar Imagen" name="img" [(ngModel)]="heroe.img" #img="ngModel">
+            </div>
+            <div class="d-flex">
+                <label class="col-4">Aparicion: </label>
+                <input type="text" class="form-control col-8 mb-2 shadow" style="border-radius: 15px; height: 50px;" placeholder="Ingresar Aparicion" name="aparicion" [(ngModel)]="heroe.aparicion" #aparicion="ngModel">
+            </div>                                            
+            <div class="d-flex">
+                <label class="col-4">Casa: </label>
+                <select name="casa" [(ngModel)]="heroe.casa" #casa="ngModel">
+                  <option value="DC">DC</option>
+                  <option value="Marvel">Marvel</option>
+                </select>
+            </div>                                                                                                          
+            <p style="color: green;"><strong>Status: </strong>{{ altas }}</p>
+            <button type="submit" class="btn btn-info">Agregar</button>
+          </form>  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>                    
+          <button class="btn btn-outline-info" onclick="document.location.reload();">Actualizar</button>
+        </div>
+      </div>
+    </div>
+  </div>        
+        
+        

@@ -14,10 +14,7 @@
             <img [src]="hero.img" class="img-fluid">
         </div>
         <div class="col-8">
-            <h3>Casa: {{hero.casa}} 
-                <img class="img-logo" src="../../../assets/img/marvelLogo.jpg" *ngIf="hero.casa == 'Marvel'">
-                <img class="img-logo" src="../../../assets/img/dcLogo.jpg" *ngIf="hero.casa == 'DC'">
-            </h3>
+            <h3>Casa: {{hero.casa}} <img class="img-logo" src="../../../assets/img/marvelLogo.jpg" *ngIf="hero.casa == 'Marvel'"><img class="img-logo" src="../../../assets/img/dcLogo.jpg" *ngIf="hero.casa == 'DC'"></h3>
             <hr>
             <p>{{hero.bio}}</p>
         </div>

@@ -1,0 +1,8 @@
+.nuevaAni{    
+    animation-duration: 3s;
+    animation-name: slidein;      
+}
+
+.colorN{
+    background-color: black;
+}
